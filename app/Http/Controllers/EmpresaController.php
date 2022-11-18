@@ -43,7 +43,7 @@ class EmpresaController extends Controller
             $datoEmpresa['Foto']=$request->file('Foto')->store('public');
         }
         Empresa::insert($datoEmpresa);
-        return response()->json($datoEmpresa);
+        return redirect('empresas')->with('mensaje','Empresa Creada Con Exito');
     }
 
     /**
@@ -103,9 +103,9 @@ class EmpresaController extends Controller
     public function destroy($id)
     {
         $empresa =Empresa::findOrFail($id);
-        if(Storage::delete('public/'.$empresa->Foto)){
+        if(Storage::delete('public'.$empresa->Foto)){
             Empresa::destroy($id);
         }
-        return redirect ('empresas');
+        return redirect('empresas')->with('mensaje','Empresa Eliminada');
     }
 }

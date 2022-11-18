@@ -1,4 +1,11 @@
 
+
+@if(Session::has('mensaje'))
+{{Session::get('mensaje')}}
+@endif
+
+
+
 <a href="{{url('/empresas/create')}}">Registrar Empresa</a>
 
 <table class="table table -light">
