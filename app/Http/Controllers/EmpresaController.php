@@ -38,6 +38,20 @@ class EmpresaController extends Controller
      */
     public function store(Request $request)
     {
+        $camposEmpresa=[
+            'Nombre'=>'require|string|max:50',
+            'Correo'=>'require|email|max:50',
+            'PaginaWeb'=>'require|url|max:50',
+            'Foto'=>'require|max:10000|mimes:jpeg,png,jpg',
+        ];
+
+        $mensaje=[
+            'required'=>'El campo :attribute es requerido'
+        ];
+
+        $this->validate($request, $camposEmpresa, $mensaje);
+
+
         $datoEmpresa = request()->except('_token');
         if($request->hasFile('Foto')){
             $datoEmpresa['Foto']=$request->file('Foto')->store('public');

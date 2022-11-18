@@ -13,15 +13,12 @@ use App\Http\Controllers\EmpresaController;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
 
-
-Route::resource('/empresas',EmpresaController::class);
-
-
+Route::resource('/empresas',EmpresaController::class)->middleware('auth');
 
 Auth::routes();
+Route::get('/home', [EmpresaController::class, 'index'])->name('home');
 
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+Route::group(['middleware'=>'auth'], function(){
+    Route::get('/',[EmpresaController::class, 'index'])->name('home');
+});
