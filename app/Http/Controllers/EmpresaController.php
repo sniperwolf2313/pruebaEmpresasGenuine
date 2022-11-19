@@ -39,15 +39,13 @@ class EmpresaController extends Controller
     public function store(Request $request)
     {
         $camposEmpresa=[
-            'Nombre'=>'require|string|max:50',
-            'Correo'=>'require|email|max:50',
-            'PaginaWeb'=>'require|url|max:50',
+            'Nombre'=>'required|string|max:50',
+            'Correo'=>'required|email|max:50',
+            'PaginaWeb'=>'required|url|max:50',
             'Foto'=>'require|max:10000|mimes:jpeg,png,jpg',
         ];
 
-        $mensaje=[
-            'required'=>'El campo :attribute es requerido'
-        ];
+        $mensaje=['required'=>'El campo :attribute es requerido'];
 
         $this->validate($request, $camposEmpresa, $mensaje);
 
@@ -92,6 +90,22 @@ class EmpresaController extends Controller
      */
     public function update(Request $request, $id)
     {
+        $camposEmpresa=[
+            'Nombre'=>'required|string|max:50',
+            'Correo'=>'required|email|max:50',
+            'PaginaWeb'=>'required|url|max:50',
+
+        ];
+
+        $mensaje=['required'=>'El campo :attribute es requerido'];
+
+        if($request->hasFile('Foto')){
+            $camposEmpresa =['Foto'=>'require|max:10000|mimes:jpeg,png,jpg'];
+            $mensaje=['required'=>'El campo :attribute es requerido'];
+        }
+
+        $this->validate($request, $camposEmpresa, $mensaje);
+
 
         $datoEmpresa = request()->except(['_token','_method']);
         Empresa::where('id','=',$id)->update($datoEmpresa);
@@ -103,7 +117,7 @@ class EmpresaController extends Controller
         }
 
         $empresa =Empresa::findOrFail($id);
-        return view('empresa.edit', compact('empresa'));
+        return redirect('empresas')->with('mensaje','Empresa Modificada');
 
 
     }

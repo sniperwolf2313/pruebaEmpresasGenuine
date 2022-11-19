@@ -4,8 +4,12 @@
 <div class="container">
 
     @if(Session::has('mensaje'))
-    {{Session::get('mensaje')}}
+        <div class="alert alert-success alert-dismissible" role="alert">
+            {{Session::get('mensaje')}}
+        </div>
     @endif
+
+
 
 
 
@@ -24,8 +28,6 @@
         </thead>
         <tbody>
             @foreach ($empresas as $empresa)
-
-
             <tr>
                 <td>{{$empresa->id}}</td>
                 <td>{{$empresa->Nombre}}</td>
@@ -46,5 +48,6 @@
             @endforeach
         </tbody>
     </table>
+    {!!$empresas->links() !!}
 </div>
 @endsection

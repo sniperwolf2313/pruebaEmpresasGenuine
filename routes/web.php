@@ -22,3 +22,6 @@ Route::get('/home', [EmpresaController::class, 'index'])->name('home');
 Route::group(['middleware'=>'auth'], function(){
     Route::get('/',[EmpresaController::class, 'index'])->name('home');
 });
+
+
+Route::resource('/empleados',EmpleadoController::class)->middleware('auth');
