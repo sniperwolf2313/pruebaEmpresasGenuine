@@ -23,7 +23,7 @@ return new class extends Migration
         });
 
         Schema::create('empleados', function (Blueprint $table) {
-            $table->id('IdEmpleado');
+            $table->id();
             $table->string('Nombre');
             $table->string('PrimerApellido');
             $table->string('SegundoApellido');

@@ -13,7 +13,8 @@
 
 
 
-    <a href="{{url('/empleados/create')}}">Registrar Nuevo Empleado</a>
+    <a class="btn btn-outline-success" href="{{url('/empleados/create')}}">Registrar Nuevo Empleado</a>
+    <br><br>
 
     <table class="table table -light">
         <thead class="thead-light">
@@ -38,12 +39,12 @@
                 <td>{{$empleado->Correo}}</td>
                 <td>{{$empleado->Telefono}}</td>
                 <td>
-                    <a href="{{url('/empleados/'.$empleado->id.'/edit')}}">Editar</a>
+                    <a class="btn btn-outline-warning" href="{{url('/empleados'.$empleado->id.'/edit')}}">Editar</a>
 
-                    <form action="{{url('/empleados/'.$empleado->id)}}" method="post">
+                    <form class='d-inline' action="{{url('/empleados/'.$empleado->id)}}" method="post">
                         @csrf
                         {{method_field ('DELETE')}}
-                        <input type="submit" onclick="return confirm('Quieres borrar este empleado?')" value="Borrar">
+                        <input class="btn btn-outline-danger" type="submit" onclick="return confirm('Quieres borrar este empleado?')" value="Borrar">
                     </form>
                 </td>
             </tr>

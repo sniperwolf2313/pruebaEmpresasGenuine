@@ -29,7 +29,7 @@ class EmpleadoController extends Controller
      */
     public function create()
     {
-        $listaEmpresas['empresas']=Empresa::all();
+        $listaEmpresas['empresasLista']=Empresa::all();
         return view('empleado.create',$listaEmpresas);
     }
 

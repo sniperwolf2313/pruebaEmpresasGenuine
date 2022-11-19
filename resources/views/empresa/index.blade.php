@@ -8,12 +8,8 @@
             {{Session::get('mensaje')}}
         </div>
     @endif
-
-
-
-
-
-    <a href="{{url('/empresas/create')}}">Registrar Empresa</a>
+    <a class="btn btn-outline-success" href="{{url('/empresas/create')}}">Registrar Empresa</a>
+    <br><br>
 
     <table class="table table -light">
         <thead class="thead-light">
@@ -33,14 +29,14 @@
                 <td>{{$empresa->Nombre}}</td>
                 <td>{{$empresa->Correo}}</td>
                 <td>{{$empresa->PaginaWeb}}</td>
-                <td><img src="{{asset('../storage/app').'/'.$empresa->Foto}}" width="100" alt=""></td>
+                <td><img class="img-thumbnail img-fluid" src="{{asset('../storage/app').'/'.$empresa->Foto}}" width="100" height="100" alt=""></td>
                 <td>
-                    <a href="{{url('/empresas/'.$empresa->id.'/edit')}}">Editar</a>
+                    <a class="btn btn-outline-warning" href="{{url('/empresas/'.$empresa->id.'/edit')}}">Editar</a>
 
-                    <form action="{{url('/empresas/'.$empresa->id)}}" method="post">
+                    <form class='d-inline' action="{{url('/empresas/'.$empresa->id)}}" method="post">
                         @csrf
                         {{method_field ('DELETE')}}
-                        <input type="submit" onclick="return confirm('Quieres borrar esta empresa?')" value="Borrar">
+                        <input class="btn btn-outline-danger" type="submit" onclick="return confirm('Quieres borrar esta empresa?')" value="Borrar">
                     </form>
                 </td>
             </tr>
