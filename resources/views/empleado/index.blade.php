@@ -38,9 +38,9 @@
                 <td>{{$empleado->Correo}}</td>
                 <td>{{$empleado->Telefono}}</td>
                 <td>
-                    <a href="{{url('/empleados/'.$empresa->id.'/edit')}}">Editar</a>
+                    <a href="{{url('/empleados/'.$empleado->id.'/edit')}}">Editar</a>
 
-                    <form action="{{url('/empleados/'.$empresa->id)}}" method="post">
+                    <form action="{{url('/empleados/'.$empleado->id)}}" method="post">
                         @csrf
                         {{method_field ('DELETE')}}
                         <input type="submit" onclick="return confirm('Quieres borrar este empleado?')" value="Borrar">
@@ -51,6 +51,6 @@
             @endforeach
         </tbody>
     </table>
-    {!!$empresas->links() !!}
+    {!!$empleados->links() !!}
 </div>
 @endsection

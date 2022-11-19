@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\EmpresaController;
+use App\Http\Controllers\EmpleadoController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -24,4 +25,6 @@ Route::group(['middleware'=>'auth'], function(){
 });
 
 
-Route::resource('/empleados',EmpleadoController::class)->middleware('auth');
+
+Route::resource('/empleados',EmpleadoController::class);
+

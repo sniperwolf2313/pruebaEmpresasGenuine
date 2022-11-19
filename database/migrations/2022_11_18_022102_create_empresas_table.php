@@ -29,8 +29,7 @@ return new class extends Migration
             $table->string('SegundoApellido');
             $table->string('Empresa');
             $table->string('Correo');
-            $table->integer('Telefono');
-            $table->foreign('Empresa')->references('id')->on('empresas');
+            $table->string('Telefono');
             $table->timestamps();
         });
     }

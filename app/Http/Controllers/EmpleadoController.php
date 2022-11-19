@@ -3,8 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Models\Empleado;
+use App\Models\Empresa;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Storage;
+
 
 class EmpleadoController extends Controller
 {
@@ -15,8 +16,10 @@ class EmpleadoController extends Controller
      */
     public function index()
     {
+
         $listaEmpleados['empleados']=Empleado::paginate(10);
         return view('empleado.index', $listaEmpleados);
+
     }
 
     /**
@@ -26,7 +29,8 @@ class EmpleadoController extends Controller
      */
     public function create()
     {
-        //
+        $listaEmpresas['empresas']=Empresa::all();
+        return view('empleado.create',$listaEmpresas);
     }
 
     /**
@@ -37,7 +41,24 @@ class EmpleadoController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $camposEmpleado=[
+            'Nombre'=>'required|string|max:50',
+            'PrimerApellido'=>'required|string|max:50',
+            'SegundoApellido'=>'required|string|max:50',
+            'Empresa'=>'required|string|max:50',
+            'Correo'=>'required|email|max:50',
+            'Telefono'=>'required',
+
+        ];
+
+        $mensaje=['required'=>'El campo :attribute es requerido'];
+
+        $this->validate($request, $camposEmpleado, $mensaje);
+
+
+        $datoEmpleado = request()->except('_token');
+        Empleado::insert($datoEmpleado);
+        return redirect('empleados')->with('mensaje','Empleado Agregado Con Exito');
     }
 
     /**
@@ -57,9 +78,10 @@ class EmpleadoController extends Controller
      * @param  \App\Models\Empleado  $empleado
      * @return \Illuminate\Http\Response
      */
-    public function edit(Empleado $empleado)
+    public function edit($id)
     {
-        //
+        $empleado =Empleado::findOrFail($id);
+        return view('empleado.edit', compact('empleado'));
     }
 
     /**
@@ -69,9 +91,30 @@ class EmpleadoController extends Controller
      * @param  \App\Models\Empleado  $empleado
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Empleado $empleado)
+    public function update(Request $request, $id)
     {
-        //
+        $camposEmpleado=[
+            'Nombre'=>'required|string|max:50',
+            'PrimerApellido'=>'required|string|max:50',
+            'SegundoApellido'=>'required|string|max:50',
+            'Empresa'=>'required|string|max:50',
+            'Correo'=>'required|email|max:50',
+            'Telefono'=>'required',
+
+        ];
+
+        $mensaje=['required'=>'El campo :attribute es requerido'];
+
+        $this->validate($request, $camposEmpleado, $mensaje);
+
+        $datoEmpleado = request()->except(['_token','_method']);
+        Empleado::where('id','=',$id)->update($datoEmpleado);
+
+
+        $empleado =Empleado::findOrFail($id);
+        return redirect('empleados')->with('mensaje','Empleado Modificado');
+
+
     }
 
     /**
@@ -80,8 +123,10 @@ class EmpleadoController extends Controller
      * @param  \App\Models\Empleado  $empleado
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Empleado $empleado)
+    public function destroy($id)
     {
-        //
+        $empleado =Empleado::findOrFail($id);
+        Empleado::destroy($id);
+        return redirect('empleados')->with('mensaje','Empleado Eliminado');
     }
 }

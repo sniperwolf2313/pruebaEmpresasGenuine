@@ -42,7 +42,7 @@ class EmpresaController extends Controller
             'Nombre'=>'required|string|max:50',
             'Correo'=>'required|email|max:50',
             'PaginaWeb'=>'required|url|max:50',
-            'Foto'=>'require|max:10000|mimes:jpeg,png,jpg',
+            'Foto'=>'required|max:10000|mimes:jpeg,png,jpg',
         ];
 
         $mensaje=['required'=>'El campo :attribute es requerido'];
